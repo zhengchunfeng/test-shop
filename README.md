@@ -8,4 +8,9 @@
 
 3.后续不断完善一些开源技术融入到本demo中...
 
+备注：
+（1）启动本项目前，需要先安装Zookeeper,Kafka。
+（2）如果想要监控Elastic-job的任务调度，去克隆elastic-job源代码生成war包，通过start.bat进行启动即可。
+
+
 欢迎Star，欢迎Fork...
