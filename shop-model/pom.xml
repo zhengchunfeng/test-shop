@@ -11,5 +11,14 @@
 
     <artifactId>shop-model</artifactId>
 
+    <!-- 依赖管理-->
+    <dependencies>
+        <!-- 引入entity依赖-->
+        <dependency>
+            <groupId>com.test</groupId>
+            <artifactId>shop-entity</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
