@@ -1,7 +1,7 @@
 # test-shop
 
 1.本项目以SpringBoot为基础进行开发
-  目前整合了Kafka，Elastic-job，Zookeeper，Redis
+  目前整合了Kafka，Elastic-job，Zookeeper，Redis，Lambda
   
 
 
