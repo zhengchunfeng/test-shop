@@ -27,5 +27,31 @@ public class NumberConstant {
      **/
     public static final Integer NUMBER_ONE_INTEGER = 1;
 
+    /**
+     * @description Integer自然数10
+     * @author zhengchunfeng
+     * @date 2019/11/25 10:47
+     * @param null 1
+     * @return
+     **/
+    public static final Integer NUMBER_TEN_INTEGER = 10;
+
+    /**
+     * @description Integer自然数20
+     * @author zhengchunfeng
+     * @date 2019/11/25 10:47
+     * @param null 1
+     * @return
+     **/
+    public static final Integer NUMBER_TWENTY_INTEGER = 20;
+
+    /**
+     * @description Integer自然数60
+     * @author zhengchunfeng
+     * @date 2019/11/25 10:47
+     * @param null 1
+     * @return
+     **/
+    public static final Integer NUMBER_SIXTY_INTEGER = 60;
 
 }
