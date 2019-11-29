@@ -25,7 +25,7 @@ public class UserCountDownThread implements Runnable{
     public void run() {
 
         try {
-            System.out.println(Thread.currentThread().getName() + index);
+            System.out.println(Thread.currentThread().getName() + "--->" +index);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
