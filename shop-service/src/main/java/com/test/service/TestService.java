@@ -10,4 +10,13 @@ package com.test.service;
 public interface TestService {
 
      String getApi();
+
+     /**
+      * @description 用户签到
+      * @author zhengchunfeng
+      * @date 2019/12/4 19:11
+      * @param  1
+      * @return void
+      **/
+     void userSignIn();
 }

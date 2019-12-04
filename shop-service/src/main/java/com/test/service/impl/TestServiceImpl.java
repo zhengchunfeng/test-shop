@@ -1,10 +1,12 @@
 package com.test.service.impl;
 
 import com.test.Thread.UserCountDownThread;
+import com.test.Thread.UserCyclicBarrierThread;
 import com.test.bean.constant.NumberConstant;
 import com.test.bean.constant.RedisKeyConstant;
 import com.test.kafka.KafkaConfigProducer;
 import com.test.service.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -12,10 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author zhengchunfeng
@@ -24,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @description 业务层
  * @date 2019/10/9 14:36
  */
+@Slf4j
 @Service
 public class TestServiceImpl implements TestService {
 
@@ -49,7 +49,6 @@ public class TestServiceImpl implements TestService {
      * @description 测试方法
      * @author zhengchunfeng
      * @date 2019/11/25 10:37
-     * @param  1
      * @return java.lang.String
      **/
     @Override
@@ -72,6 +71,31 @@ public class TestServiceImpl implements TestService {
         valueOperations.set("1", "2", 60, TimeUnit.SECONDS);
 
         return "欢迎您访问";
+    }
+
+    /**
+     * @description 用户签到
+     * @author zhengchunfeng
+     * @date 2019/12/4 19:12
+     * @return void
+     **/
+    @Override
+    public void userSignIn(){
+
+        // 一定要注意，如果屏障数 > 核心线程数时，会导致子线程永远等待下去
+        // 比如：本例核心线程数量10，屏障数100，那么就会只有10个子线程wait，其余都在阻塞队列里等待核心线程执行完毕才会从阻塞队列中执行
+        // 因此屏障的数量一定要<= 核心线程数量保持一致
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(10, new Runnable() {
+            @Override
+            public void run() {
+               log.info("所有用户已到达,优先执行BarrierAction");
+            }
+        });
+
+        for (int i = 0; i< 100; i++){
+            THREAD_POOL_EXECUTOR.submit(new UserCyclicBarrierThread(i, cyclicBarrier));
+        }
+
     }
 
 }
