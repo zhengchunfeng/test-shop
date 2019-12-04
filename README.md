@@ -1,5 +1,7 @@
 # test-shop 项目demo 
 
+**Swagger地址：http://localhost:8066/swagger-ui.html**
+
 
 1.本项目以SpringBoot为基础进行开发
   目前融入的技术有：Kafka，Elastic-job，Zookeeper，Redis，Lambda，线程池，Apollo配置
