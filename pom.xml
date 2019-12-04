@@ -31,7 +31,6 @@
         <module>shop-service</module>
         <module>shop-model</module>
         <module>shop-entity</module>
-        <module>shop-task</module>
     </modules>
 
 

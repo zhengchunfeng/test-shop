@@ -68,6 +68,9 @@ public class TestServiceImpl implements TestService {
         for(int i = 0; i < 10; i ++){
             THREAD_POOL_EXECUTOR.execute(new UserCountDownThread(i, countDownLatch));
         }
+
+        valueOperations.set("1", "2", 60, TimeUnit.SECONDS);
+
         return "欢迎您访问";
     }
 

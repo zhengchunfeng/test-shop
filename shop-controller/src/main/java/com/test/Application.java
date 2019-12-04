@@ -1,5 +1,6 @@
 package com.test;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,13 +15,14 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @description 启动类
  * @date 2019/10/9 10:44
  */
+@EnableApolloConfig
 @ServletComponentScan
 @SpringBootApplication
 //@EnableDiscoveryClient
 public class Application {
 
     public static void main(String[] args) {
-        ///new SpringApplicationBuilder(Application.class).web(true).run(args);
+        //new SpringApplicationBuilder(Application.class).web(true).run(args);
         SpringApplication.run(Application.class, args);
     }
 
