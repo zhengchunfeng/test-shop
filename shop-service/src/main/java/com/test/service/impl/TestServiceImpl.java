@@ -62,13 +62,17 @@ public class TestServiceImpl implements TestService {
         String testKey = RedisKeyConstant.TEST_API_INCR + LocalDate.now().getYear();
         valueOperations.increment(testKey, NumberConstant.NUMBER_ONE_INTEGER);
 
-        // 3.定义同步类会阻塞主线程执行
+        // 3.定义同步类
         CountDownLatch countDownLatch = new CountDownLatch(NumberConstant.NUMBER_TEN_INTEGER);
         for(int i = 0; i < 10; i ++){
             THREAD_POOL_EXECUTOR.execute(new UserCountDownThread(i, countDownLatch));
         }
-
-        valueOperations.set("1", "2", 60, TimeUnit.SECONDS);
+        try {
+            // 会阻塞主线程执行,直至子线程执行完毕
+            countDownLatch.await();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return "欢迎您访问";
     }
