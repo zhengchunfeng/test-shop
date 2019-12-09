@@ -34,6 +34,6 @@ public class UserManageController {
     public String userSignIn(){
 
         testService.userSignIn();
-        return "CyclicBarrier";
+        return testService.getDefaultValue();
     }
 }

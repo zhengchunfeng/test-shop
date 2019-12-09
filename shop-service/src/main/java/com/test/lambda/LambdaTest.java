@@ -1,10 +1,7 @@
 package com.test.lambda;
 
 import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -66,11 +63,32 @@ public class LambdaTest {
         boolean noneMatch = list.stream().noneMatch(p -> p.equals("hello"));
         System.out.println("全不匹配-" + noneMatch);
 
+        // 2.6 sorted给集合排序
+        List<Integer> list22 = new ArrayList<>(Arrays.asList(6, 10, 9, 3));
+        System.out.println(list22);
+        //list22.sort((sum1, sum2) -> sum1-sum2);
+        list22 = list22.stream().sorted().collect(Collectors.toList());
+        System.out.println(list22);
+
+        // 2.7 flatMap扁平化流
+        List<String> stringList = new ArrayList<>(Arrays.asList("hello", "world"));
+        String string = stringList.stream().flatMap(x -> Stream.of(x)).collect(Collectors.joining());
+        System.out.println(string);
+
 
         /**------------------------3.Optional流操作-------------------------------------------------**/
 
         Optional<String> optional = Optional.ofNullable(null);
         boolean o = optional.map(f -> f.equals("hello")).orElseGet(() -> false);
         System.out.println("我是Optional-" + o);
+
+        /** forEach遍历map **/
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("age", "26");
+        map.put("name", "豆芽菜");
+        map.forEach((key, value) -> {
+            System.out.println(key + " = " + value);
+        });
+
     }
 }

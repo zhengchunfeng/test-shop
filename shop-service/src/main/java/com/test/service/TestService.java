@@ -19,4 +19,14 @@ public interface TestService {
       * @return void
       **/
      void userSignIn();
+
+     /**
+      * @description 默认方法
+      * @author zhengchunfeng
+      * @date 2019/12/9 14:11
+      * @return java.lang.String
+      **/
+     default String getDefaultValue(){
+          return "我是默认方法";
+     }
 }
