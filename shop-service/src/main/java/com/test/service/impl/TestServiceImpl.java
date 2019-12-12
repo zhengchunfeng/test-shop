@@ -4,12 +4,12 @@ import com.test.Thread.UserCountDownThread;
 import com.test.Thread.UserCyclicBarrierThread;
 import com.test.bean.constant.NumberConstant;
 import com.test.bean.constant.RedisKeyConstant;
-import com.test.kafka.KafkaConfigProducer;
 import com.test.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,8 +28,8 @@ import java.util.concurrent.*;
 public class TestServiceImpl implements TestService {
 
 
-    @Autowired
-    private KafkaConfigProducer kafkaConfigProducer;
+    @Resource
+    private KafkaTemplate<String, Object> kafkaTemplate;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -55,7 +55,7 @@ public class TestServiceImpl implements TestService {
     public String getApi(){
 
         // 1.发送一条消息
-        kafkaConfigProducer.sendKafkaMessage("prebuy-20191121-01", "我是一条kafka消息");
+        kafkaTemplate.send("topic-20191212", "我是手动提交位移");
 
         // 2.累计加1
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();

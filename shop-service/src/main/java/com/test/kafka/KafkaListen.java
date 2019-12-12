@@ -24,7 +24,7 @@ public class KafkaListen {
      * @param message 1
      * @return void
      **/
-    @KafkaListener(topics = {"prebuy-20191121-01"})
+    @KafkaListener(topics = {"topic-20191212"})
     public void receiveMessage(String message){
 
         //收到通道的消息之后执行秒杀操作
