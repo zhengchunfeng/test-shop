@@ -36,4 +36,16 @@ public class UserManageController {
         testService.userSignIn();
         return testService.getDefaultValue();
     }
+
+    /**
+     * @description semaphore测试
+     * @author zhengchunfeng
+     * @date 2019/12/4 19:08
+     * @return java.lang.String
+     **/
+    @GetMapping("/semaphoreTest")
+    public void semaphoreTest(){
+
+        testService.semaphoreTest();
+    }
 }

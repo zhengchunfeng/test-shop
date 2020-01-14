@@ -2,6 +2,7 @@ package com.test.service.impl;
 
 import com.test.Thread.UserCountDownThread;
 import com.test.Thread.UserCyclicBarrierThread;
+import com.test.Thread.UserSemaphoreThread;
 import com.test.bean.constant.NumberConstant;
 import com.test.bean.constant.RedisKeyConstant;
 import com.test.service.TestService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.concurrent.*;
 
 /**
@@ -99,6 +101,26 @@ public class TestServiceImpl implements TestService {
         for (int i = 0; i< 100; i++){
             THREAD_POOL_EXECUTOR.submit(new UserCyclicBarrierThread(i, cyclicBarrier));
         }
+
+        semaphoreTest();
+
+    }
+
+
+
+    @Override
+    public void semaphoreTest(){
+
+        // 信号量为2,意味着每次只能执行2个线程，本例核心线程10个，那么剩下8个线程需要之前的线程release，才能acquire成功
+        Semaphore semaphore = new Semaphore(2);
+
+        for (int i = 0;i <10; i++){
+            Future<Map<String, Object>> future = THREAD_POOL_EXECUTOR.submit(new UserSemaphoreThread(semaphore, i));
+        }
+
+        // semaphore并不会限流主线程
+        log.info("semaphore主线程执行完毕");
+
 
     }
 

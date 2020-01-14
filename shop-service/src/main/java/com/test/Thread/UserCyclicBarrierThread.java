@@ -42,4 +42,8 @@ public class UserCyclicBarrierThread implements Callable<Map<String, Object>> {
 
     }
 
+    public static void main(String[] args) {
+        Thread thread = new Thread();
+    }
+
 }

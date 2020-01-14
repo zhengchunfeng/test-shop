@@ -29,4 +29,7 @@ public interface TestService {
      default String getDefaultValue(){
           return "我是默认方法";
      }
+
+
+     void semaphoreTest();
 }
