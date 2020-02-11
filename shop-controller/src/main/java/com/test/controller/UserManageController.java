@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhengchunfeng
  * @version 1.0
  * @className UserManageController
- * @description
+ * @description 用户测试类控制层
  * @date 2019/12/4 19:06
  */
 @Api(tags = "UserManageController")
@@ -32,10 +32,10 @@ public class UserManageController {
      **/
     @GetMapping("/signIn")
     public String userSignIn(){
-
         testService.userSignIn();
         return testService.getDefaultValue();
     }
+
 
     /**
      * @description semaphore测试
@@ -45,7 +45,9 @@ public class UserManageController {
      **/
     @GetMapping("/semaphoreTest")
     public void semaphoreTest(){
-
         testService.semaphoreTest();
     }
+
+
+
 }
