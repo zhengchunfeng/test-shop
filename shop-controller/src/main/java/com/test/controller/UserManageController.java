@@ -1,11 +1,14 @@
 package com.test.controller;
 
+import com.test.bean.vo.AddUserFormVO;
 import com.test.service.TestService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 /**
@@ -25,13 +28,14 @@ public class UserManageController {
 
 
     /**
-     * @description 用户签到
+     * @description 添加用户
      * @author zhengchunfeng
-     * @date 2019/12/4 19:08
+     * @date 2020/2/12 20:19
      * @return java.lang.String
      **/
-    @GetMapping("/signIn")
-    public String userSignIn(){
+    @PostMapping("/add")
+    @ApiOperation(value = "添加用户")
+    public String addUser(@Valid AddUserFormVO addUserFormVO){
         testService.userSignIn();
         return testService.getDefaultValue();
     }

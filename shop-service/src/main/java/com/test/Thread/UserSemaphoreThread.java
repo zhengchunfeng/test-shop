@@ -31,7 +31,7 @@ public class UserSemaphoreThread implements Callable<Map<String, Object>> {
      * @description 重写call方法
      * @author zhengchunfeng
      * @date 2020/1/14 16:44
-     * @return java.util.Map<java.lang.String,java.lang.Object>
+     * @return java.config.Map<java.lang.String,java.lang.Object>
      **/
     @Override
     public Map<String, Object> call(){

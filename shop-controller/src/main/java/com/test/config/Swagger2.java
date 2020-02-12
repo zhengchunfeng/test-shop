@@ -1,7 +1,7 @@
 /**
  * 功能描述：用于构建Restful API
  */
-package com.test.util;
+package com.test.config;
 
 
 import org.springframework.context.annotation.Bean;

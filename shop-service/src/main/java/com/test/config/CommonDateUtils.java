@@ -1,4 +1,4 @@
-package com.test.util;
+package com.test.config;
 
 import com.ctrip.framework.apollo.core.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -199,9 +199,9 @@ public class CommonDateUtils {
      **/
     public static long getTimestamp(){
 
-        // 时间戳信息里同时包含了日期和时间，这和java.util.Date很像。实际上Instant类确实等同于 Java 8之前的Date类，
+        // 时间戳信息里同时包含了日期和时间，这和java.config.Date很像。实际上Instant类确实等同于 Java 8之前的Date类，
         // 你可以使用Date类和Instant类各自的转换方法互相转换，
-        // 例如：Date.from(Instant) 将Instant转换成java.util.Date，Date.toInstant()则是将Date类转换成Instant类。
+        // 例如：Date.from(Instant) 将Instant转换成java.config.Date，Date.toInstant()则是将Date类转换成Instant类。
         Instant timestamp = Instant.now();
         return timestamp.toEpochMilli();
     }

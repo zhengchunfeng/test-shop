@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper>
+
+
+    <!-- 测试查询 -->
+    <select id = "" resultType = "java.util.HashMap">
+        select * from table where id = #{id, jdbcType = BIGINT}
+    </select>
+</mapper>
