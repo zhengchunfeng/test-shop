@@ -41,8 +41,6 @@ public class Swagger2 {
                 .title("SpringBoot使用Swagger2构建RestfulAPI")
                 .description("Hello SpringBoot")
                 .termsOfServiceUrl("http://localhost/")
-                .contact("zhengchunfeng")
-                .version("1.0")
                 .build();
     }
 	
