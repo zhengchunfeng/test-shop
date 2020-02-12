@@ -27,12 +27,12 @@ public class UserSemaphoreThread implements Callable<Map<String, Object>> {
         this.index = index;
     }
 
-    /**
-     * @description 重写call方法
-     * @author zhengchunfeng
-     * @date 2020/1/14 16:44
-     * @return java.config.Map<java.lang.String,java.lang.Object>
-     **/
+   /**
+    * @description 重写call方法
+    * @author zhengchunfeng
+    * @date 2020/2/12 21:31
+    * @return java.util.Map<java.lang.String,java.lang.Object>
+    **/
     @Override
     public Map<String, Object> call(){
 

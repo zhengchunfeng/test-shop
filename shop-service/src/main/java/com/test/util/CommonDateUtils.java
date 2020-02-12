@@ -1,4 +1,4 @@
-package com.test.config;
+package com.test.util;
 
 import com.ctrip.framework.apollo.core.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
