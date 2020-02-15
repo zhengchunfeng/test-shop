@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
  * @description 取消预购资格作业
  * @author zhengchunfeng
  * @date 2019/11/18 13:31
- * @param null 1
  * @return
  **/
 @Component
@@ -29,21 +28,24 @@ public class CancelPrewBuyTask implements SimpleJob {
         // 获取分片项参数
         String shardingParameter = shardingContext.getShardingParameter();
 
-        log.info("分片总数="+shardingTotalCount);
-        log.info("分片项="+shardingItem);
-        log.info("分片项参数="+shardingParameter);
-        log.info("作业名称="+shardingContext.getJobName());
+       // log.info("分片总数="+shardingTotalCount);
+       // log.info("分片项="+shardingItem);
+       // log.info("分片项参数="+shardingParameter);
+       // log.info("作业名称="+shardingContext.getJobName());
 
         // 不同分片项不同处理
         switch (shardingItem){
             case 0:
-                log.info("第1个"+shardingParameter);
+                // 参数为mobile，专门处理mobile渠道的数据
+                log.info("分片0："+shardingParameter);
                 break;
             case 1:
-                log.info("第2个"+shardingParameter);
+                // 参数为pc，专门处理pc渠道的数据
+                log.info("分片1："+shardingParameter);
                 break;
             case 2:
-                log.info("第3个"+shardingParameter);
+                // 参数为unkown， 专门处理unkown渠道的数据
+                log.info("分片2："+shardingParameter);
                 break;
             default:break;
         }

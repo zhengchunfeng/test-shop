@@ -55,7 +55,9 @@ public class JobAPI implements CommandLineRunner {
     **/
     public static LiteJobConfiguration cancelPrewBuy() {
 
-        JobCoreConfiguration coreConfiguration = JobCoreConfiguration.newBuilder("cancelPrewBuy", "* * 1 * * ?", 1).build();
+        // 此作业采用分片机制，分3片
+        JobCoreConfiguration coreConfiguration = JobCoreConfiguration.newBuilder("cancelPrewBuy", "* */1 * * * ?", 3)
+                .shardingItemParameters("0=mobile,1=pc,2=unkown").build();
         SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(coreConfiguration, CancelPrewBuyTask.class.getCanonicalName());
         // 定义lite作业配置
         LiteJobConfiguration jobConfiguration = LiteJobConfiguration.newBuilder(simpleJobConfiguration).overwrite(true).build();
