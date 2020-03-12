@@ -75,6 +75,33 @@ public class LambdaTest {
         String string = stringList.stream().flatMap(x -> Stream.of(x)).collect(Collectors.joining());
         System.out.println(string);
 
+        // 2.8 Collectors.groupingBy分组
+        List<Map<String, Object>> initList = new ArrayList<>();
+        Map<String, Object> ageMap = new HashMap<>();
+        ageMap.put("age", 20);
+        ageMap.put("name", "zhangsan");
+        initList.add(ageMap);
+
+        Map<String, Object> ageMap1 = new HashMap<>();
+        ageMap1.put("age", 20);
+        ageMap1.put("name", "zhangsan1");
+        initList.add(ageMap1);
+
+        Map<String, Object> ageMap2 = new HashMap<>();
+        ageMap2.put("age", 21);
+        ageMap2.put("name", "zhangsan2");
+        initList.add(ageMap2);
+
+        List<Map<String, Object>> groupList = new ArrayList<>();
+        // 以age分组，注意groupingBy分组后是以分组的字段为Key，返回值类型为Map，这里故进行二次遍历组装数据
+        initList.stream().collect(Collectors.groupingBy(f -> f.get("age"))).forEach((k, v) -> {
+            Map<String, Object> ageMap3 = new HashMap<>();
+            ageMap3.put("age", k);
+            ageMap3.put("group", v);
+            groupList.add(ageMap3);
+        });
+        System.out.println(groupList);
+
 
         /**------------------------3.Optional流操作-------------------------------------------------**/
 

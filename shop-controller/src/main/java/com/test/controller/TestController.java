@@ -56,4 +56,17 @@ public class TestController {
     public String getApollo(){
         return apolloConstant.getTestNotes();
     }
+
+    /**
+     * @description RedisTemplate5种类型测试方法
+     * @author zhengchunfeng
+     * @date 2020/2/22 16:46
+     * @param  1
+     * @return void
+     **/
+    @ApiOperation(value = "redisTemplate5种类型测试方法")
+    @GetMapping("/redis/test")
+    public void redisTest(){
+        testService.redisTest();
+    }
 }

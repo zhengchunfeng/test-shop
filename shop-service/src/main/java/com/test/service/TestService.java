@@ -32,4 +32,14 @@ public interface TestService {
 
 
      void semaphoreTest();
+
+
+     /**
+      * @description RedisTemplate5种类型测试方法
+      * @author zhengchunfeng
+      * @date 2020/2/22 16:46
+      * @param  1
+      * @return void
+      **/
+     void redisTest();
 }

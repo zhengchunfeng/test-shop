@@ -5,16 +5,17 @@ import com.test.Thread.UserCyclicBarrierThread;
 import com.test.Thread.UserSemaphoreThread;
 import com.test.bean.constant.NumberConstant;
 import com.test.bean.constant.RedisKeyConstant;
+import com.test.bean.enums.UserRoleEnum;
 import com.test.service.TestService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.junit.Test;
+import org.springframework.data.redis.core.*;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -122,6 +123,83 @@ public class TestServiceImpl implements TestService {
 
 
     }
+
+    /**
+     * @description redisTemplate 5种测试方法
+     * @author zhengchunfeng
+     * @date 2020/2/22 16:49
+     * @param  1
+     * @return void
+     **/
+    @Override
+    public void redisTest(){
+
+        // -----------------------1.String类型------------------------
+        ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set("test:value", 12345);
+        // 在并发场景下，不建议分步设置过期时间
+        redisTemplate.expire("test:value", 10, TimeUnit.SECONDS);
+        valueOperations.get("test:value");
+        long incrValue = valueOperations.increment("test:value", 1);
+        // 从redis高版本后，可以在set key指定过期时间
+        valueOperations.set("test:value", "2", 10, TimeUnit.SECONDS);
+        // setNx
+        valueOperations.setIfAbsent("test:value", "3");
+        // del key
+        redisTemplate.delete("test:value");
+
+
+        // -----------------------2.hash类型-------------------------
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        // hSet String fields value fields2 value2
+        hashOperations.put("test_hash", "name", "张三");
+        // hGet Key fields
+        hashOperations.get("test_hash", "name");
+        // hGetAll key
+        Map<Object, Object> hashMap = hashOperations.entries("test_hash");
+        // hMGet key fields1 fields2
+        hashOperations.multiGet("test_hash", Arrays.asList("name"));
+
+
+
+        // -----------------------3.list类型-------------------------
+        ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+        // lPush key
+        listOperations.leftPush("test:list", "123");
+        // lPop key
+        listOperations.leftPop("test:list");
+
+
+        // -----------------------4.set类型-------------------------
+        SetOperations<String, Object> setOperations = redisTemplate.opsForSet();
+        setOperations.add("test:set", "1", "2", "3");
+        redisTemplate.delete("test:set");
+
+        // -----------------------5.Sorted set类型------------------
+        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
+        // zAdd key score member
+        zSetOperations.add("test:zSet", "mi", 60);
+        // zIncrBy key score member
+        Double zIncrValue = zSetOperations.incrementScore("test:zSet", "mi", 10);
+
+        Set<ZSetOperations.TypedTuple<Object>> set = zSetOperations.reverseRangeWithScores("test:zSet", 0, 4);
+
+    }
+
+
+    @Test
+    public void testShow(){
+
+        // 省略if-else
+        UserRoleEnum userRoleEnum = UserRoleEnum.getUserRole("1");
+        String userRole = Optional.of(userRoleEnum).map(f -> f.getMessage()).orElseGet(() -> "未知角色");
+        System.out.println(userRole);
+
+    }
+
+
+
+
 
 
 
