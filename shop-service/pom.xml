@@ -74,6 +74,19 @@
             <artifactId>junit</artifactId>
         </dependency>
 
+        <!-- 服务链路追踪 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <version>1.3.4.RELEASE</version>
+        </dependency>
+
+        <!-- Feign 声明式API-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>1.3.4.RELEASE</version>
+        </dependency>
 
     </dependencies>
 
