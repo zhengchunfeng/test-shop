@@ -6,6 +6,7 @@
 1.本项目以SpringBoot为基础进行开发
   目前融入的技术有：Kafka，Elastic-job，Zookeeper，Redis，Lambda，线程池，Apollo配置，Swagger2，java8日期类；
   Eureka，Feign，Ribbon，Hystrix，Zuul，Zipkin等
+  配置Redisson分布式锁
   
 
 2.模块的依赖关系
