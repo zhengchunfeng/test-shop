@@ -1,9 +1,6 @@
 package com.test.service.impl;
 
-import com.test.redis.RedisConfig;
-import com.test.redisson.RedissonConfig;
 import com.test.service.GoodsManageService;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
