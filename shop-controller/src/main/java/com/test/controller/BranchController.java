@@ -16,5 +16,9 @@ public class BranchController {
         System.out.println("------测试类");
 
         System.out.println("=========");
+        System.out.println("0000000000");
+        System.out.println("0000000000");
+        System.out.println("0000000000");
+        System.out.println("0000000000");
     }
 }
