@@ -45,7 +45,7 @@ public class GoodsManageServiceImpl implements GoodsManageService {
         // 获取分布式锁
         RLock rLock = redissonClient.getLock(lockKey);
         try {
-            // 锁过期30s
+            // 获取锁等待时间 30s
             rLock.tryLock(30, TimeUnit.SECONDS);
             ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
             Integer goodsCount = (Integer) valueOperations.get("shop:goods:count");
