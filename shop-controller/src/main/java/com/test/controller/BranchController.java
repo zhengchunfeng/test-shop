@@ -1,5 +1,8 @@
 package com.test.controller;
 
+import com.test.design.strategy.AgentRoleStrategy;
+import com.test.design.strategy.StrategyContext;
+
 /**
  * @author zhengchunfeng
  * @version 1.0
@@ -12,13 +15,10 @@ public class BranchController {
 
     public static void main(String[] args) {
 
-        System.out.println("0000000000");
-        System.out.println("------测试类");
+        // 获取代理商角色-策略模式
+        StrategyContext strategyContext = new StrategyContext(new AgentRoleStrategy());
+        strategyContext.execute();
 
-        System.out.println("=========");
-        System.out.println("0000000000");
-        System.out.println("0000000000");
-        System.out.println("0000000000");
-        System.out.println("0000000000");
+
     }
 }
