@@ -53,5 +53,8 @@ public class UserManageController {
     }
 
 
-
+    @GetMapping("/strategy")
+    public void strategy(){
+        testService.strategy();
+    }
 }

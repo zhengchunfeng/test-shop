@@ -42,4 +42,6 @@ public interface TestService {
       * @return void
       **/
      void redisTest();
+
+     void strategy();
 }

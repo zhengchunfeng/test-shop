@@ -7,6 +7,8 @@ import com.test.bean.constant.NumberConstant;
 import com.test.bean.constant.RedisKeyConstant;
 import com.test.bean.enums.UserRoleEnum;
 import com.test.service.TestService;
+import com.test.strategy.LevelContext;
+import com.test.strategy.LevelInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.data.redis.core.*;
@@ -14,6 +16,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.*;
@@ -128,7 +131,6 @@ public class TestServiceImpl implements TestService {
      * @description redisTemplate 5种测试方法
      * @author zhengchunfeng
      * @date 2020/2/22 16:49
-     * @param  1
      * @return void
      **/
     @Override
@@ -199,6 +201,14 @@ public class TestServiceImpl implements TestService {
 
 
 
+    @Override
+    public void strategy(){
+
+        // 依据会员等级获取不同的价格，代替了if-else,后续增加新的会员等级可直接新增即可，符合开闭原则
+        LevelInterface levelInterface = LevelContext.getInstance(2);
+        BigDecimal price = levelInterface.getLevelPrice();
+        log.info("依据会员等级获取相应商品价格[{}]", price);
+    }
 
 
 
