@@ -50,6 +50,7 @@
             <version>2.1.5</version>
         </dependency>
 
+        <!-- 使用springframework自定义命名空间时引入 -->
         <dependency>
             <groupId>com.dangdang</groupId>
             <artifactId>elastic-job-lite-spring</artifactId>
