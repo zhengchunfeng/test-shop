@@ -24,8 +24,7 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
-
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
@@ -81,19 +80,24 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
         // 关闭csrf验证
         http.csrf().disable()
-                // 对请求进行认证
-                .authorizeRequests()
+
+                // 下面开始配置权限
+           .authorizeRequests()
+                // 1.PERMIT_ALL_MAPPING请求放行
                 .antMatchers(PERMIT_ALL_MAPPING).permitAll()
-                // 对/login 的POST请求都放行
+                // 2.login 的POST请求都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                // 如果需要添加角色，权限可在此处进行设置
-                // antMatchers("请求路径url").hasAuthority("权限功能名称")
-                // antMatchers("请求路径url").hasRole("角色名称")
-                // 所有请求需要身份认证,必须登录后才能访问
+
+                // 3.只有角色ROLE_ADMIN,ROLE_USER才能访问
+                .antMatchers("/order").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+
+                // 4.除上面外的剩下其余所有请求需要权限身份认证,必须登录后才能访问
                 .anyRequest().authenticated()
+
                 .and()
                 // 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
                 .addFilterBefore(new JwtLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+
                 // 添加一个过滤器验证其他请求的Token是否合法
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

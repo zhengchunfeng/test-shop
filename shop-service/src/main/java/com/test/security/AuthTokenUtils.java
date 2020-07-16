@@ -125,7 +125,7 @@ public class AuthTokenUtils {
                     .getBody();
         } catch (ExpiredJwtException e){
             // 说明jwtToken失效，获取refreshToken判断其是否失效，如果都失效，则提示用户重新登录
-            log.info("当前jwtToken[{}]失效，将使用refreshToken换取新jwtToken", jwtToken);
+            log.info("当前jwtToken失效，将使用refreshToken换取新jwtToken[{}]", jwtToken);
             // Todo 具体逻辑待完善
 
             return null;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author zhengchunfeng
  * @version 1.0
  * @className UserAuthProvider
- * @description 用户密码验证功能
+ * @description 登录时校验用户密码验证
  * @date 2020/7/13 17:33
  */
 public class UserAuthProvider implements AuthenticationProvider {
@@ -22,6 +22,11 @@ public class UserAuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+
+        if (authentication.getCredentials() == null) {
+            throw new BadCredentialsException("Bad credentials");
+        }
 
         // 获取认证的用户名和密码
         String userName = authentication.getName();
