@@ -32,19 +32,19 @@ import java.util.List;
 public class AuthTokenUtils {
 
     // jwt过期时间2h 单位：ms
-    private static final long JWT_EXPIRE_TIME = 2 * 60 * 60 * 1000L;
+    private static final Long JWT_EXPIRE_TIME = 2 * 60 * 60 * 1000L;
 
     // refreshToken 过期时间7天 单位：ms
-    private static final long REFRESH_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
+    private static final Long REFRESH_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     // 生成JWT秘钥的签名秘钥(注意是生成签名的秘钥，并不是生成JWT的秘钥)
-    static final String SECRET = "secret";
+    private static final String SECRET = "secret";
 
     // Token前缀
-    static final String TOKEN_PREFIX = "Bearer";
+    private static final String TOKEN_PREFIX = "Bearer";
 
     // 存放Token的Header Key
-    static final String HEADER_STRING = "Authorization";
+    private static final String HEADER_STRING = "Authorization";
 
     /**
      * @description 生成用户JWT
