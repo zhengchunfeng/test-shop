@@ -3,9 +3,11 @@ package com.test.security;
 import com.alibaba.fastjson.JSON;
 import com.test.bean.constant.ResultData;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,8 +31,11 @@ import java.util.List;
 @Slf4j
 public class AuthTokenUtils {
 
-    // token 过期时间
-    private static final long EXPIRE_TIME = 7200000;
+    // jwt过期时间2h 单位：ms
+    private static final long JWT_EXPIRE_TIME = 2 * 60 * 60 * 1000L;
+
+    // refreshToken 过期时间7天 单位：ms
+    private static final long REFRESH_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     // 生成JWT秘钥的签名秘钥(注意是生成签名的秘钥，并不是生成JWT的秘钥)
     static final String SECRET = "secret";
@@ -64,8 +69,8 @@ public class AuthTokenUtils {
                 .claim("authorities", stringBuffer)
                 // 用户名写入标题
                 .setSubject(authentication.getName())
-                // 有效期设置
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_TIME))
+                // 有效期设置 ,一旦jwtToken过期，便会抛出io.jsonwebtoken.ExpiredJwtException异常
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRE_TIME))
                 // 签名设置
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
@@ -102,20 +107,33 @@ public class AuthTokenUtils {
     public static Authentication getAuthentication(HttpServletRequest request) {
 
         // 从Header中拿到token
-        String token = request.getHeader(HEADER_STRING);
+        String jwtToken = request.getHeader(HEADER_STRING);
 
-        if (token == null) {
+        if (StringUtils.isBlank(jwtToken)) {
             log.info("从Header中获取用户Authorization为空, 403无权限");
             return null;
         }
 
         // 解析 Token
-        Claims claims = Jwts.parser()
-                // 验签（防止数据被篡改）
-                .setSigningKey(SECRET)
-                // 去掉 Bearer
-                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                .getBody();
+        Claims claims = null;
+        try {
+            claims = Jwts.parser()
+                    // 验签（防止数据被篡改）
+                    .setSigningKey(SECRET)
+                    // 去掉 Bearer
+                    .parseClaimsJws(jwtToken.replace(TOKEN_PREFIX, ""))
+                    .getBody();
+        } catch (ExpiredJwtException e){
+            // 说明jwtToken失效，获取refreshToken判断其是否失效，如果都失效，则提示用户重新登录
+            log.info("当前jwtToken[{}]失效，将使用refreshToken换取新jwtToken", jwtToken);
+            // Todo 具体逻辑待完善
+
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            // 其它异常，直接返回
+            return null;
+        }
 
         // 获取用户名
         String userName = claims.getSubject();
