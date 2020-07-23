@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -31,12 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 开放访问的请求
      */
     private final static String[] PERMIT_ALL_MAPPING = {
-            "/api/hello",
-            "/api/login",
-            "/api/home",
-            "/api/verifyImage",
-            "/api/image/verify",
-            "/images/**"
+            "/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**"
     };
 
 
